@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basics</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+   <header>
+   <header class="main-header">
+  <h1>From Code to Motion: <span>Simulating and Deploying Robots</span></h1>
+  <p class="tagline">A journey through simulation, control, and real-world deployment using ROS and Gazebo.</p>
+  </header>
+    <nav>
+        <a href="index.html">Home</a> 
+      <a href="about.html">About</a> 
+      <a href="PID.html" >PID</a>
+      <a href="FeedBack Linearization.html" >FeedBack Linearization</a>
+       <a href="BackStepping .html">BackStepping</a>
+      <a href="Basics.html">Basics</a>
+      <a href="Cascaded.html">Cascaded</a>
+      <a href="https://arashdeepsinghmaan.github.io/robotics_software_tutorial/index.html">Other Resources</a>
+      <a href="contact.html">Contact</a>
+     
+    </nav>
+  </header>
+
+ <main class="content-wrapper">
+    <div class="main-content">
+      <h2>Basics</h2>
+      <h3>Sensor Fusion v/s Sensor Integration</h3><p> 
+<section>
+    Sensor integration is the process of connecting and configuring multiple sensors in a system so that their data can be accessed and used.
+</p>
+
+<h4>Focus</h4>
+<ul>
+  <li>Physical and software connection</li>
+  <li>Data acquisition and communication</li>
+  <li>Ensuring sensors are properly interfaced with the controller or computer</li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+  <li>Connecting IMU and GPS via I2C and UART to a microcontroller</li>
+  <li>Writing ROS2 drivers or launching sensor nodes to access sensor data</li>
+  <li>Syncing timestamps from different sensors (e.g., camera and LiDAR)</li>
+</ul>
+
+<h4>Goal</h4>
+<p>Make raw data from sensors available for use.</p>
+
+<h4>Sensor Fusion</h4>
+<p>
+Sensor fusion is the mathematical process of combining data from multiple sensors to produce a more accurate, reliable, or comprehensive estimate of the environment or system state.
+</p>
+
+<h4>Focus</h4>
+<ul>
+  <li>Algorithms and estimation</li>
+  <li>Accuracy, reliability, and robustness</li>
+  <li>Overcoming individual sensor limitations</li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+  <li>Using Kalman Filter to fuse IMU and GPS for accurate position estimation</li>
+  <li>Combining camera and LiDAR data for better object detection</li>
+  <li>Merging ultrasonic and IR data for obstacle distance estimation</li>
+</ul>
+
+<h4>Goal</h4>
+<p>Improve perception or estimation by leveraging complementary strengths of multiple sensors.</p>
+
+<h3>Summary Table</h3>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Aspect</th>
+    <th>Sensor Integration</th>
+    <th>Sensor Fusion</th>
+  </tr>
+  <tr>
+    <td>What it does</td>
+    <td>Connects and sets up sensors</td>
+    <td>Combines data from sensors</td>
+  </tr>
+  <tr>
+    <td>Focus</td>
+    <td>Hardware + basic software</td>
+    <td>Algorithms and data processing</td>
+  </tr>
+  <tr>
+    <td>Level</td>
+    <td>Low-level system setup</td>
+    <td>High-level information processing</td>
+  </tr>
+  <tr>
+    <td>Tools/Techniques</td>
+    <td>Interfaces (I2C, SPI, UART), Drivers, ROS2</td>
+    <td>Kalman Filter, Bayesian Estimation, DNNs</td>
+  </tr>
+  <tr>
+    <td>Output</td>
+    <td>Raw or calibrated sensor data</td>
+    <td>Refined or estimated data (e.g., position, map)</td>
+  </tr>
+</table>
+
+<h3>Example: Drone</h3>
+<ul>
+  <li><strong>Sensor Integration:</strong> Connecting IMU, GPS, and barometer to Pixhawk or Jetson Nano; ensuring each publishes data to a ROS2 topic.</li>
+  <li><strong>Sensor Fusion:</strong> Using an Extended Kalman Filter (EKF) to combine IMU + GPS + barometer to estimate drone position with higher accuracy.</li>
+</ul>
+ 
+
+  <section>
+    <h3>Understanding Sensor Fusion: What to Focus On</h3>
+
+<h4>1. Sensor Hardware Level — What to Know</h4>
+<p>You are not designing the sensors, but using them effectively. So focus on:</p>
+
+<h4>Power Requirements</h4>
+<ul>
+  <li>Each sensor needs a specific voltage and current.</li>
+  <li>Essential for battery-powered or embedded systems.</li>
+  <li><strong>Why?</strong> To avoid brownouts, overheating, or damage.</li>
+</ul>
+
+<h4>Communication Protocols</h4>
+<ul>
+  <li>Common protocols: I2C, SPI, UART, CAN, USB.</li>
+  <li>You need compatible ports on your microcontroller or computer.</li>
+  <li><strong>Why?</strong> To correctly read and sync data.</li>
+</ul>
+
+<h4>Data Output Format</h4>
+<ul>
+  <li>Some sensors give raw data (e.g., accelerometer in m/s²).</li>
+  <li>Others give processed values (e.g., GPS gives coordinates).</li>
+  <li><strong>Why?</strong> To interpret and fuse data correctly.</li>
+</ul>
+
+<h3>2. Software Level — Sensor Integration</h3>
+<p>Once sensors are powered and connected, ensure their data is accessible in software:</p>
+<ul>
+  <li>Use or write drivers (ROS2 nodes, C/C++/Python interfaces).</li>
+  <li>Ensure data is publishing (e.g., <code>/imu/data</code>, <code>/gps/fix</code> topics).</li>
+  <li>Sync data sources using timestamps if needed.</li>
+</ul>
+
+<h3>3. Fusion Algorithms — Combining Sensor Data</h3>
+
+<h4>Popular Algorithms</h4>
+<ul>
+  <li><strong>Kalman Filter (KF)</strong> — For linear systems.</li>
+  <li><strong>Extended Kalman Filter (EKF)</strong> — For nonlinear systems.</li>
+  <li><strong>Complementary Filter</strong> — Simple, good for fusing gyroscope and accelerometer.</li>
+  <li><strong>Particle Filter</strong> — Probabilistic, used in localization.</li>
+  <li><strong>Deep Learning Models</strong> — For perception tasks (e.g., image + LiDAR).</li>
+</ul>
+
+<h4>What Fusion Algorithms Do</h4>
+<ul>
+  <li>Filter out noise from raw data.</li>
+  <li>Merge complementary data types (e.g., IMU + GPS).</li>
+  <li>Handle delays, dropout, and uncertainties.</li>
+</ul>
+
+<h4>Key Concepts to Understand</h4>
+<ul>
+  <li><strong>State vector:</strong> What are you estimating? (e.g., position, velocity, orientation)</li>
+  <li><strong>Measurement model:</strong> How sensor data maps to the state.</li>
+  <li><strong>Update rate:</strong> Fusion must handle fast and slow sensors gracefully.</li>
+</ul>
+
+<h3>4. Example: Fusing IMU + GPS</h3>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Step</th>
+    <th>What You Focus On</th>
+  </tr>
+  <tr>
+    <td>Choose Sensors</td>
+    <td>Check power, communication (e.g., IMU via I2C, GPS via UART)</td>
+  </tr>
+  <tr>
+    <td>Integrate</td>
+    <td>Write or use drivers, confirm data on topics</td>
+  </tr>
+  <tr>
+    <td>Fuse</td>
+    <td>Use EKF to combine GPS and IMU for accurate position</td>
+  </tr>
+  <tr>
+    <td>Use Output</td>
+    <td>Feed fused result to controller or mapping system</td>
+  </tr>
+</table>
+
+</section>
+
+ 
+
+  
+      <!--
+      <h3>📷 Add an Image</h3>
+      <img src="images/your-image.jpg" alt="A related image about pointers or simulation">
+
+      <h3>▶️ Embed a YouTube Video</h3>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
+              title="YouTube video" frameborder="0" allowfullscreen></iframe>
+
+      <h3>📑 Additional Section</h3>
+      <p>Learn how pointers are used in plugin development, managing memory in ROS2 nodes, and other relevant applications.</p>
+-->
+   <div class="tutorial-section">
+  <h3>🧑‍💻 Sensor Fusion Tutorials</h3>
+  <p>First we will focus on individual topics. Then we will move forward to sensors and will see how these topics reflect on the sensors.</p>
+  <ul class="tutorial-links">
+    <li><a href="SensorFusion/Communication_protocol.html">Communication Protocol</a></li>
+    <li><a href="SensorFusion/power.html">Power</a></li>
+    <li><a href="SensorFusion/dataoutput.html">Data Output Format</a></li>
+    <li><a href="SensorFusion/drivers.html">Drivers</a></li>
+    <li><a href="SensorFusion/kalman.html">Kalman Filter</a></li>
+    <li><a href="SensorFusion/extended.html">Extended Kalman Filter</a></li>
+    <li><a href="SensorFusion/particle.html">Particle Filter</a></li>
+    <li><a href="SensorFusion/imu.html">IMU</a></li>
+    <li><a href="SensorFusion/gps.html">GPS</a></li>
+    <li><a href="SensorFusion/lidar.html">LIDAR</a></li>
+    <li><a href="SensorFusion/radar.html">RADAR</a></li>
+    <li><a href="SensorFusion/temperature.html">Temperature Sensor</a></li>
+    <li><a href="SensorFusion/pressure.html">Pressure Sensor</a></li>
+    <li><a href="SensorFusion/camera.html">Camera</a></li>
+    <li><a href="SensorFusion/sonar.html">Sonar</a></li>
+
+  </ul>
+</div>
+
+    </div>
+
+    <aside class="sidebar">
+      <h3>📌 Related Posts</h3>
+      <ul>
+        <li><a href="/simulation_gazebo/post1.html">How to Setup Gazebo</a></li>
+        <li><a href="/simulation_gazebo/post2.html">Understanding SDF Files</a></li>
+        <li><a href="/simulation_gazebo/post3.html">Creating Custom Robots</a></li>
+        <li><a href="/simulation_gazebo/post4.html">Working with ROS2</a></li>
+        <li><a href="/simulation_gazebo/post5.html">Building Plugins</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <section class="extra-resources">
+    <h3>📚 Other Useful Resources</h3>
+    <ul>
+      <li><a href="https://docs.ros.org/en/jazzy/index.html">ROS2 Official Documentation</a></li>
+      <li><a href="https://docs.ros.org/en/jazzy/Concepts/Basic.html">ROS2 Basic Concepts</a></li>
+      <li><a href="https://classic.gazebosim.org/tutorials">Classic Gazebo Tutorials</a></li>
+      <li><a href="https://github.com/ros-simulation">ROS Simulation GitHub</a></li>
+      <li><a href="https://cppreference.com">C++ Reference Site</a></li>
+    </ul>
+  </section>
+
+    
+
+  <footer>
+     <p>&copy; 2025 My Guide to Robotics Simulations</p>
+  </footer>
+
+</body>
+</html>
