@@ -28,178 +28,108 @@
 
  <main class="content-wrapper">
     <div class="main-content">
-      <h2>Basics</h2>
-      <h3>Sensor Fusion v/s Sensor Integration</h3><p> 
-<section>
-    Sensor integration is the process of connecting and configuring multiple sensors in a system so that their data can be accessed and used.
-</p>
-
-<h4>Focus</h4>
-<ul>
-  <li>Physical and software connection</li>
-  <li>Data acquisition and communication</li>
-  <li>Ensuring sensors are properly interfaced with the controller or computer</li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-  <li>Connecting IMU and GPS via I2C and UART to a microcontroller</li>
-  <li>Writing ROS2 drivers or launching sensor nodes to access sensor data</li>
-  <li>Syncing timestamps from different sensors (e.g., camera and LiDAR)</li>
-</ul>
-
-<h4>Goal</h4>
-<p>Make raw data from sensors available for use.</p>
-
-<h4>Sensor Fusion</h4>
-<p>
-Sensor fusion is the mathematical process of combining data from multiple sensors to produce a more accurate, reliable, or comprehensive estimate of the environment or system state.
-</p>
-
-<h4>Focus</h4>
-<ul>
-  <li>Algorithms and estimation</li>
-  <li>Accuracy, reliability, and robustness</li>
-  <li>Overcoming individual sensor limitations</li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-  <li>Using Kalman Filter to fuse IMU and GPS for accurate position estimation</li>
-  <li>Combining camera and LiDAR data for better object detection</li>
-  <li>Merging ultrasonic and IR data for obstacle distance estimation</li>
-</ul>
-
-<h4>Goal</h4>
-<p>Improve perception or estimation by leveraging complementary strengths of multiple sensors.</p>
-
-<h3>Summary Table</h3>
-<table border="1" cellpadding="5" cellspacing="0">
-  <tr>
-    <th>Aspect</th>
-    <th>Sensor Integration</th>
-    <th>Sensor Fusion</th>
-  </tr>
-  <tr>
-    <td>What it does</td>
-    <td>Connects and sets up sensors</td>
-    <td>Combines data from sensors</td>
-  </tr>
-  <tr>
-    <td>Focus</td>
-    <td>Hardware + basic software</td>
-    <td>Algorithms and data processing</td>
-  </tr>
-  <tr>
-    <td>Level</td>
-    <td>Low-level system setup</td>
-    <td>High-level information processing</td>
-  </tr>
-  <tr>
-    <td>Tools/Techniques</td>
-    <td>Interfaces (I2C, SPI, UART), Drivers, ROS2</td>
-    <td>Kalman Filter, Bayesian Estimation, DNNs</td>
-  </tr>
-  <tr>
-    <td>Output</td>
-    <td>Raw or calibrated sensor data</td>
-    <td>Refined or estimated data (e.g., position, map)</td>
-  </tr>
-</table>
-
-<h3>Example: Drone</h3>
-<ul>
-  <li><strong>Sensor Integration:</strong> Connecting IMU, GPS, and barometer to Pixhawk or Jetson Nano; ensuring each publishes data to a ROS2 topic.</li>
-  <li><strong>Sensor Fusion:</strong> Using an Extended Kalman Filter (EKF) to combine IMU + GPS + barometer to estimate drone position with higher accuracy.</li>
-</ul>
- 
+      <section>
+    <h2>Control Theory Classification</h2>
+    <p>Control theory provides mathematical tools to influence dynamic systems. It's more than just an engineering tool—it's a structured way to ensure systems behave as desired.</p>
+  </section>
 
   <section>
-    <h3>Understanding Sensor Fusion: What to Focus On</h3>
+    <h3>I. Based on System Linearity</h3>
 
-<h4>1. Sensor Hardware Level — What to Know</h4>
-<p>You are not designing the sensors, but using them effectively. So focus on:</p>
+    <h4>1. Linear Control</h4>
+    <p>Assumes the system is of the form <code>𝑥̇ = A𝑥 + B𝑢</code>.</p>
+    <ul>
+      <li>PID (Proportional–Integral–Derivative)</li>
+      <li>LQR (Linear Quadratic Regulator)</li>
+      <li>Pole Placement</li>
+      <li>Kalman Filter</li>
+    </ul>
 
-<h4>Power Requirements</h4>
-<ul>
-  <li>Each sensor needs a specific voltage and current.</li>
-  <li>Essential for battery-powered or embedded systems.</li>
-  <li><strong>Why?</strong> To avoid brownouts, overheating, or damage.</li>
-</ul>
+    <h4>2. Nonlinear Control</h4>
+    <p>Handles systems where linear assumptions break down: <code>𝑥̇ = f(𝑥) + g(𝑥)u</code>.</p>
+    <ul>
+      <li>Feedback Linearization</li>
+      <li>Backstepping</li>
+      <li>Sliding Mode Control</li>
+      <li>Lyapunov-based Control</li>
+    </ul>
+  </section>
 
-<h4>Communication Protocols</h4>
-<ul>
-  <li>Common protocols: I2C, SPI, UART, CAN, USB.</li>
-  <li>You need compatible ports on your microcontroller or computer.</li>
-  <li><strong>Why?</strong> To correctly read and sync data.</li>
-</ul>
+  <section>
+    <h3>II. Based on System Knowledge</h3>
 
-<h4>Data Output Format</h4>
-<ul>
-  <li>Some sensors give raw data (e.g., accelerometer in m/s²).</li>
-  <li>Others give processed values (e.g., GPS gives coordinates).</li>
-  <li><strong>Why?</strong> To interpret and fuse data correctly.</li>
-</ul>
+    <h4>3. Adaptive Control</h4>
+    <p>Used when system parameters are unknown or changing; controller adjusts in real time.</p>
+    <ul>
+      <li>Model Reference Adaptive Control (MRAC)</li>
+      <li>Adaptive Backstepping</li>
+      <li>Gain Scheduling</li>
+    </ul>
 
-<h3>2. Software Level — Sensor Integration</h3>
-<p>Once sensors are powered and connected, ensure their data is accessible in software:</p>
-<ul>
-  <li>Use or write drivers (ROS2 nodes, C/C++/Python interfaces).</li>
-  <li>Ensure data is publishing (e.g., <code>/imu/data</code>, <code>/gps/fix</code> topics).</li>
-  <li>Sync data sources using timestamps if needed.</li>
-</ul>
+    <h4>4. Robust Control</h4>
+    <p>Designs for the worst-case uncertainty; stability is ensured even with bounded disturbances.</p>
+    <ul>
+      <li>H-infinity Control</li>
+      <li>Sliding Mode Control (again)</li>
+      <li>μ-synthesis</li>
+    </ul>
+  </section>
 
-<h3>3. Fusion Algorithms — Combining Sensor Data</h3>
+  <section>
+    <h3>III. Based on Domain (Time vs Frequency)</h3>
 
-<h4>Popular Algorithms</h4>
-<ul>
-  <li><strong>Kalman Filter (KF)</strong> — For linear systems.</li>
-  <li><strong>Extended Kalman Filter (EKF)</strong> — For nonlinear systems.</li>
-  <li><strong>Complementary Filter</strong> — Simple, good for fusing gyroscope and accelerometer.</li>
-  <li><strong>Particle Filter</strong> — Probabilistic, used in localization.</li>
-  <li><strong>Deep Learning Models</strong> — For perception tasks (e.g., image + LiDAR).</li>
-</ul>
+    <h4>5. Time-Domain Control</h4>
+    <p>Works in state-space form and is more suited for modern nonlinear systems.</p>
+    <ul>
+      <li>State feedback</li>
+      <li>Lyapunov theory</li>
+      <li>Backstepping</li>
+    </ul>
 
-<h4>What Fusion Algorithms Do</h4>
-<ul>
-  <li>Filter out noise from raw data.</li>
-  <li>Merge complementary data types (e.g., IMU + GPS).</li>
-  <li>Handle delays, dropout, and uncertainties.</li>
-</ul>
+    <h4>6. Frequency-Domain Control</h4>
+    <p>Used mostly for linear time-invariant (LTI) systems.</p>
+    <ul>
+      <li>Bode Plot</li>
+      <li>Nyquist Plot</li>
+      <li>Root Locus</li>
+    </ul>
+  </section>
 
-<h4>Key Concepts to Understand</h4>
-<ul>
-  <li><strong>State vector:</strong> What are you estimating? (e.g., position, velocity, orientation)</li>
-  <li><strong>Measurement model:</strong> How sensor data maps to the state.</li>
-  <li><strong>Update rate:</strong> Fusion must handle fast and slow sensors gracefully.</li>
-</ul>
+  <section>
+    <h3>IV. Other Specialized Control Techniques</h3>
 
-<h3>4. Example: Fusing IMU + GPS</h3>
-<table border="1" cellpadding="5" cellspacing="0">
-  <tr>
-    <th>Step</th>
-    <th>What You Focus On</th>
-  </tr>
-  <tr>
-    <td>Choose Sensors</td>
-    <td>Check power, communication (e.g., IMU via I2C, GPS via UART)</td>
-  </tr>
-  <tr>
-    <td>Integrate</td>
-    <td>Write or use drivers, confirm data on topics</td>
-  </tr>
-  <tr>
-    <td>Fuse</td>
-    <td>Use EKF to combine GPS and IMU for accurate position</td>
-  </tr>
-  <tr>
-    <td>Use Output</td>
-    <td>Feed fused result to controller or mapping system</td>
-  </tr>
-</table>
+    <h4>7. Optimal Control</h4>
+    <p>Minimizes a performance cost function over time.</p>
+    <ul>
+      <li>LQR (Linear Quadratic Regulator)</li>
+      <li>MPC (Model Predictive Control)</li>
+      <li>Dynamic Programming</li>
+    </ul>
 
-</section>
+    <h4>8. Intelligent Control</h4>
+    <p>Uses AI techniques to handle complex or poorly modeled systems.</p>
+    <ul>
+      <li>Fuzzy Logic Control</li>
+      <li>Neural Networks</li>
+      <li>Reinforcement Learning</li>
+    </ul>
 
+    <h4>9. Geometric Control</h4>
+    <p>Uses differential geometry and Lie groups for controlling systems like spacecraft, drones, and AUVs.</p>
+    <ul>
+      <li>SE(3), SO(3) manifold control</li>
+      <li>Non-Euclidean feedback design</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Summary</h3>
+    <p>Control theory is the mathematical and engineering framework that helps regulate and guide the behavior of dynamic systems. It's used not only for robots and vehicles but also in finance, biology, energy systems, and more.</p>
+  </section>
+     
+
+ 
+   
  
 
   
