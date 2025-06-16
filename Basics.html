@@ -41,6 +41,7 @@
     <h4>1. Linear Control</h4>
     <p>
       Linear control assumes the system dynamics can be approximated by linear differential equations. It's the starting point for most control theory and is useful when deviations from equilibrium are small.
+      Assumes the system is of the form <code>𝑥̇ = A𝑥 + B𝑢</code>.
     </p>
     <ul>
       <li><strong>PID Control:</strong> The most widely used controller in industry. Simple to tune. Works well for SISO systems.</li>
@@ -52,6 +53,7 @@
     <h4>2. Nonlinear Control</h4>
     <p>
       Real-world systems (like robots, AUVs, drones) are often nonlinear. Nonlinear control deals with such systems where linear approximation fails or is inadequate.
+      Handles systems where linear assumptions break down: <code>𝑥̇ = f(𝑥) + g(𝑥)u</code>.
     </p>
     <ul>
       <li><strong>Feedback Linearization:</strong> Cancels nonlinearities through nonlinear feedback to make the system behave linearly.</li>
@@ -67,6 +69,7 @@
     <h4>3. Adaptive Control</h4>
     <p>
       Adaptive control is used when system parameters are uncertain or slowly changing. The controller "learns" the system characteristics in real time and adjusts itself.
+      Used when system parameters are unknown or changing; controller adjusts in real time.
     </p>
     <ul>
       <li><strong>MRAC (Model Reference Adaptive Control):</strong> Tracks a reference model whose behavior we desire, adapting controller gains to minimize error.</li>
@@ -77,6 +80,7 @@
     <h4>4. Robust Control</h4>
     <p>
       Robust control deals with systems where uncertainties or disturbances are present, but their bounds are known. The goal is to maintain stability and performance under all circumstances within these bounds.
+    
     </p>
     <ul>
       <li><strong>H-infinity Control:</strong> Minimizes the worst-case effect of disturbances using norms.</li>
