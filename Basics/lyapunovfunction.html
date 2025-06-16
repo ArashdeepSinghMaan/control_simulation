@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Linear Control </title>
+  <title>Lyapunov Control Function </title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -28,83 +28,6 @@
 
 <main class="content-wrapper">
   <div class="main-content">
-    <section>
-    <h2>Control Lyapunov Function (CLF)</h2>
-    <p>
-      A Control Lyapunov Function (CLF) is a tool used in nonlinear control to design a controller that ensures the system becomes stable. Unlike a regular Lyapunov function which simply checks if a system is stable, a CLF helps you <strong>construct a stabilizing control input</strong>.
-    </p>
-  </section>
-
-  <section>
-    <h3>What is a Control Lyapunov Function?</h3>
-    <p>
-      For a system with control input:
-    </p>
-    <pre>
-      𝑥̇ = f(x) + g(x)u
-    </pre>
-    <p>
-      A function <code>V(x)</code> is a Control Lyapunov Function if:
-    </p>
-    <ul>
-      <li><code>V(x) &gt; 0</code> for all <code>x ≠ 0</code>, and <code>V(0) = 0</code></li>
-      <li>
-        There exists a control input <code>u</code> such that:
-        <pre>
-          𝑑V/dt = ∇V(x)ᵗ (f(x) + g(x)u) &lt; 0
-        </pre>
-      </li>
-    </ul>
-    <p>This means we can always find some <strong>u</strong> that makes the "energy" of the system go down.</p>
-  </section>
-
-  <section>
-    <h3>Simple Example</h3>
-    <h4>System:</h4>
-    <pre>
-      𝑥̇ = -x³ + u
-    </pre>
-
-    <h4>Candidate Lyapunov Function:</h4>
-    <pre>
-      V(x) = ½ x²
-    </pre>
-
-    <h4>Compute the Derivative:</h4>
-    <pre>
-      𝑑V/dt = x * 𝑥̇ = x(-x³ + u) = -x⁴ + x * u
-    </pre>
-
-    <h4>Choose Control:</h4>
-    <p>
-      Let <code>u = -k x</code> where <code>k &gt; 0</code>, then:
-    </p>
-    <pre>
-      𝑑V/dt = -x⁴ - k x² &lt; 0 ∀ x ≠ 0
-    </pre>
-    <p>
-      ✅ So, <code>V(x) = ½ x²</code> is a valid Control Lyapunov Function and <code>u = -k x</code> stabilizes the system.
-    </p>
-  </section>
-
-  <section>
-    <h3>Why is it Useful?</h3>
-    <ul>
-      <li>Guarantees stabilizing control exists at every non-zero state</li>
-      <li>Forms the basis of feedback design in nonlinear systems</li>
-      <li>Used in techniques like backstepping, adaptive control, and safety-critical control</li>
-    </ul>
-  </section>
-
-  <section>
-    <h3>Applications of CLF</h3>
-    <ul>
-      <li>Autonomous robots and drones</li>
-      <li>Adaptive cruise control and safety enforcement</li>
-      <li>Backstepping controller design</li>
-      <li>Combining with Control Barrier Functions (CBFs) for safe control</li>
-    </ul>
-  </section>
     
 <!--
     <h3>▶️ Embed a YouTube Video</h3>
