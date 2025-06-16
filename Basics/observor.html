@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Observor </title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+   <header>
+     <header class="main-header">
+  <h1>From Code to Motion: <span>Simulating and Deploying Robots</span></h1>
+  <p class="tagline">A journey through simulation, control, and real-world deployment using ROS and Gazebo.</p>
+  </header>
+    <nav>
+       <a href="../index.html">Home</a> 
+      <a href="../about.html">About</a> 
+      <a href="../PID.html" >PID</a>
+      <a href="../FeedBack Linearization.html" >FeedBack Linearization</a>
+       <a href="../BackStepping .html">BackStepping</a>
+      <a href="../Basics.html">Basics</a>
+      <a href="../Cascaded.html">Cascaded</a>
+      <a href="https://arashdeepsinghmaan.github.io/robotics_software_tutorial/index.html">Other Resources</a>
+      <a href="contact.html">Contact</a>
+     
+    </nav>
+  </header>
+
+<main class="content-wrapper">
+  <div class="main-content">
+     <section>
+    <h2>🔍 What is an Observer in Control Systems?</h2>
+    <p>
+      An <strong>observer</strong> is a computational model used to estimate internal state variables of a dynamic system when not all of them can be directly measured. It uses system inputs and outputs to reconstruct unmeasured states in real time.
+    </p>
+  </section>
+
+  <section>
+    <h3>🚦 Why Do We Need Observers?</h3>
+    <ul>
+      <li>Not all states (like velocity, position, angles) can be measured directly</li>
+      <li>Sensors may be noisy, expensive, or unavailable</li>
+      <li>Many control laws (e.g., LQR, backstepping) need full state feedback</li>
+      <li>Observers bridge the gap by estimating hidden variables</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>🧠 Basic Concept</h3>
+    <p>Given a system:</p>
+    <pre>
+      𝑥̇ = A·x + B·u
+      y = C·x
+    </pre>
+    <p>You may only measure <code>y</code>. The observer estimates <code>x</code> using:</p>
+    <pre>
+      𝑥̂̇ = A·𝑥̂ + B·u + L(y - 𝑦̂)
+      𝑦̂ = C·𝑥̂
+    </pre>
+    <p>Where <code>L</code> is the observer gain matrix that determines how fast and accurately the observer converges.</p>
+  </section>
+
+  <section>
+    <h3>🧰 Types of Observers</h3>
+    <ul>
+      <li><strong>Luenberger Observer:</strong> Basic linear observer; fast and effective for simple systems</li>
+      <li><strong>Kalman Filter:</strong> Optimal estimator in presence of Gaussian noise</li>
+      <li><strong>Extended Kalman Filter (EKF):</strong> Handles nonlinear dynamics via linearization</li>
+      <li><strong>Sliding Mode Observer:</strong> Robust against modeling uncertainties</li>
+      <li><strong>High-Gain Observer:</strong> Rapid convergence but sensitive to measurement noise</li>
+      <li><strong>Nonlinear Observers:</strong> Customized for complex systems like robots and AUVs</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>🎯 Example: Luenberger Observer</h3>
+    <p>For a linear system:</p>
+    <pre>
+      𝑥̇ = A·x + B·u
+      y = C·x
+    </pre>
+    <p>The observer is designed as:</p>
+    <pre>
+      𝑥̂̇ = A·𝑥̂ + B·u + L(y - C·𝑥̂)
+    </pre>
+    <p>The term <code>L(y - C·𝑥̂)</code> corrects the estimate based on the error between real output and predicted output.</p>
+  </section>
+
+  <section>
+    <h3>🛠️ Application Areas</h3>
+    <ul>
+      <li>Robotics (state estimation for mobile robots, AUVs)</li>
+      <li>Aerospace (attitude estimation, navigation)</li>
+      <li>Automotive (observer-based fault detection, vehicle control)</li>
+      <li>Process Control (temperature, flow, pressure estimation)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>⚖️ Observer vs Sensor</h3>
+    <table border="1" cellpadding="8">
+      <thead>
+        <tr>
+          <th>Aspect</th>
+          <th>Sensor</th>
+          <th>Observer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Input</td>
+          <td>Physical quantity (e.g., voltage, force)</td>
+          <td>System inputs + measured outputs</td>
+        </tr>
+        <tr>
+          <td>Output</td>
+          <td>Measured signal</td>
+          <td>Estimated internal states</td>
+        </tr>
+        <tr>
+          <td>Cost</td>
+          <td>Hardware-dependent</td>
+          <td>Software-based (low cost)</td>
+        </tr>
+        <tr>
+          <td>Accuracy</td>
+          <td>May suffer from noise, drift</td>
+          <td>Depends on model and observer tuning</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+    
+   <!--
+    <h3>▶️ Embed a YouTube Video</h3>
+    <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
+            title="YouTube video" frameborder="0" allowfullscreen></iframe>
+
+    <h3>📑 Additional Section</h3>
+    <p>This section could contain project details, experience, or other structured info.</p>
+  </div>
+-->
+  <aside class="sidebar">
+    <h3>📌 Related Posts</h3>
+    <ul>
+      <li><a href="/simulation_gazebo/post1.html">How to Setup Gazebo</a></li>
+      <li><a href="/simulation_gazebo/post2.html">Understanding SDF Files</a></li>
+      <li><a href="/simulation_gazebo/post3.html">Creating Custom Robots</a></li>
+      <!-- Add more as needed -->
+    </ul>
+  </aside>
+</main>
+
+<section class="extra-resources">
+  <h3>📚 Other Useful Resources</h3>
+  <ul>
+    <li><a href="https://gazebosim.org/docs">Gazebo Official Documentation</a></li>
+    <li><a href="https://roboticsbackend.com">Robotics Backend Tutorials</a></li>
+    <li><a href="https://classic.gazebosim.org/tutorials">Classic Gazebo Tutorials</a></li>
+    <!-- Add more as needed -->
+  </ul>
+</section>
+
+
+  <footer>
+     <p>&copy; 2025 My Guide to Robotics Simulations</p>
+  </footer>
+
+</body>
+</html>
