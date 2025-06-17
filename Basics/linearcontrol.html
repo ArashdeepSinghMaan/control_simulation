@@ -28,34 +28,66 @@
 
 <main class="content-wrapper">
   <div class="main-content">
-    
-    <h2>Pressure Sensor</h2>
-<p>A <strong>ROS 2 workspace</strong> is a directory that helps you organize, develop, and build your ROS 2 projects efficiently.</p>
+    <h2>🔧 What is Linear Control?</h2>
+  <p>
+    <strong>Linear Control</strong> refers to a class of control systems where the relationship between the system's inputs and outputs is governed by <strong>linear differential equations</strong>. These systems follow the principle of superposition: the response to a sum of inputs is equal to the sum of responses to each input.
+  </p>
 
-<p>For creating the workspace, follow the official documentation of ROS 2:</p>
-<a href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html">ROS 2 Workspace Creation Guide</a>
+  <h3>📐 Mathematical Form</h3>
+  <p>
+    A linear system is typically represented in <strong>state-space form</strong>:
+  </p>
+  <pre>
+    𝑥̇(t) = A·x(t) + B·u(t)
+    y(t) = C·x(t) + D·u(t)
+  </pre>
+  <ul>
+    <li><code>x(t)</code> is the state vector</li>
+    <li><code>u(t)</code> is the control input</li>
+    <li><code>y(t)</code> is the output</li>
+    <li><code>A, B, C, D</code> are constant matrices</li>
+  </ul>
 
-<h3>📷 This is how a typical ROS 2 workspace is structured:</h3>
-<img src="https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/workspace.png" alt="Workspace" width="80%">
+  <h3>⚙️ Common Linear Controllers</h3>
+  <ul>
+    <li><strong>P Controller</strong>: Proportional control</li>
+    <li><strong>PI Controller</strong>: Adds integral action for zero steady-state error</li>
+    <li><strong>PID Controller</strong>: Adds derivative action for improved damping</li>
+    <li><strong>LQR (Linear Quadratic Regulator)</strong>: Optimal control method for linear systems</li>
+    <li><strong>State Feedback Control</strong>: Uses full state for control, e.g., <code>u = -Kx</code></li>
+  </ul>
 
-<h3>📷 Let's explore the workspace</h3>
+  <h3>✅ Advantages</h3>
+  <ul>
+    <li>Simpler to analyze and design</li>
+    <li>Well-established tools (Bode plot, Root Locus, etc.)</li>
+    <li>Efficient computational implementation</li>
+  </ul>
 
-<h4>Install Folder</h4>
-   
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/install.png" alt="Install" width="80%">
-<p>The <strong>install/</strong> directory contains the final built packages and executables after compilation. You can run your ROS 2 nodes from here.</p>
+  <h3>🚫 Limitations</h3>
+  <ul>
+    <li>Only accurate for systems that are naturally linear or approximated as linear</li>
+    <li>Fails for highly nonlinear behaviors (e.g., saturation, friction, complex kinematics)</li>
+  </ul>
 
-<h4>Build Folder</h4>
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/build.png" alt="Build" width="80%">
-<p>The <strong>build/</strong> folder holds temporary files generated during compilation. This helps convert your source code into an executable format.</p>
+  <h2>🤖 In Robotics</h2>
+  <p>
+    Linear control is often used when:
+    <ul>
+      <li>The robot operates near an equilibrium point</li>
+      <li>A nonlinear system is <strong>linearized</strong> around a setpoint</li>
+      <li>Controllers like <strong>PID</strong> or <strong>LQR</strong> are sufficient</li>
+    </ul>
+    For example, balancing a two-wheeled robot or stabilizing a drone can use linear control after linearizing the dynamics.
+  </p>
 
-<h4>Log Folder</h4>
-<img src="https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/log.png" alt="Log" width="80%">
-<p>The <strong>log/</strong> directory stores logs and debugging information from your previous runs. Check this folder to diagnose issues or review performance details.</p>
+  <h2>📌 Summary</h2>
+  <ul>
+    <li><strong>Linear control</strong> uses linear equations to model and stabilize systems</li>
+    <li>It's the foundation of classical and modern control theory</li>
+    <li>Widely used in robotics for regulation, stabilization, and trajectory tracking</li>
+  </ul>
 
-<h4>Source Folder</h4>
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/packages.png" alt="src" width="80%">
-<p>The <strong>src/</strong> folder is where your actual code lives. This is where you place your ROS 2 packages, including nodes, launch files, and custom scripts.</p>
 <!--
     <h3>▶️ Embed a YouTube Video</h3>
     <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
