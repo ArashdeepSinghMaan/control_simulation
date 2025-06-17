@@ -28,35 +28,79 @@
 
 <main class="content-wrapper">
   <div class="main-content">
-    
-    <h2>Pressure Sensor</h2>
-<p>A <strong>ROS 2 workspace</strong> is a directory that helps you organize, develop, and build your ROS 2 projects efficiently.</p>
+    <h2>🛡️ What is Robust Control?</h2>
+  <p>
+    <strong>Robust Control</strong> is a control strategy that ensures system performance and stability even when there is <strong>uncertainty or variation</strong> in the system model. It is particularly useful in real-world robotics where perfect models are rarely available.
+  </p>
 
-<p>For creating the workspace, follow the official documentation of ROS 2:</p>
-<a href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html">ROS 2 Workspace Creation Guide</a>
+  <h3>🎯 Core Idea</h3>
+  <p>
+    Design a controller that works <em>well enough</em> for all models within a known set of possible uncertainties — instead of relying on an exact model.
+  </p>
 
-<h3>📷 This is how a typical ROS 2 workspace is structured:</h3>
-<img src="https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/workspace.png" alt="Workspace" width="80%">
+  <h2>🔍 Why is Robust Control Important in Robotics?</h2>
+  <ul>
+    <li>Robot models have parameter uncertainty (e.g., mass, friction, payload)</li>
+    <li>Unpredictable external disturbances (e.g., wind, terrain variation, noise)</li>
+    <li>Sensor and actuator inaccuracies</li>
+    <li>It avoids performance degradation in the face of real-world unpredictability</li>
+  </ul>
 
-<h3>📷 Let's explore the workspace</h3>
+  <h3>📐 Mathematical Formulation</h3>
+  <p>
+    Consider a system:
+  </p>
+  <pre>
+    ẋ = (A + ΔA)x + (B + ΔB)u
+  </pre>
+  <p>
+    where <code>ΔA</code> and <code>ΔB</code> represent structured or unstructured model uncertainties.
+    <br>
+    The goal is to design a controller <code>u = Kx</code> that stabilizes the system for all admissible uncertainties.
+  </p>
 
-<h4>Install Folder</h4>
-   
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/install.png" alt="Install" width="80%">
-<p>The <strong>install/</strong> directory contains the final built packages and executables after compilation. You can run your ROS 2 nodes from here.</p>
+  <h3>🧰 Common Robust Control Methods</h3>
+  <ul>
+    <li><strong>H∞ Control:</strong> Minimizes the worst-case gain from disturbance to output.</li>
+    <li><strong>μ-Synthesis:</strong> Handles structured uncertainty using the structured singular value.</li>
+    <li><strong>Sliding Mode Control (SMC):</strong> Forces system trajectories to "slide" along a stable manifold despite disturbances.</li>
+    <li><strong>Lyapunov Robustness:</strong> Designs controllers with guaranteed bounds on error despite parameter variations.</li>
+  </ul>
 
-<h4>Build Folder</h4>
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/build.png" alt="Build" width="80%">
-<p>The <strong>build/</strong> folder holds temporary files generated during compilation. This helps convert your source code into an executable format.</p>
+  <h3>✅ Advantages</h3>
+  <ul>
+    <li>Ensures performance and stability under uncertainty</li>
+    <li>Often doesn't require exact model identification</li>
+    <li>Suitable for high-precision and safety-critical robotic systems</li>
+  </ul>
 
-<h4>Log Folder</h4>
-<img src="https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/log.png" alt="Log" width="80%">
-<p>The <strong>log/</strong> directory stores logs and debugging information from your previous runs. Check this folder to diagnose issues or review performance details.</p>
+  <h3>🚫 Challenges</h3>
+  <ul>
+    <li>Can be overly conservative (sacrifices performance)</li>
+    <li>Mathematically complex (e.g., solving LMIs or Riccati equations)</li>
+    <li>Design trade-off between robustness and performance</li>
+  </ul>
 
-<h4>Source Folder</h4>
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/packages.png" alt="src" width="80%">
-<p>The <strong>src/</strong> folder is where your actual code lives. This is where you place your ROS 2 packages, including nodes, launch files, and custom scripts.</p>
-<!--
+  <h2>🤖 Examples in Robotics</h2>
+  <ul>
+    <li>Designing a drone controller that remains stable despite wind gusts</li>
+    <li>Controlling a robotic manipulator with unknown payloads</li>
+    <li>Ground robots navigating rough terrain without precise traction models</li>
+  </ul>
+
+  <h3>📌 Robust Control vs Adaptive Control</h3>
+  <ul>
+    <li><strong>Robust Control</strong>: Assumes uncertainty is bounded but doesn't change much over time</li>
+    <li><strong>Adaptive Control</strong>: Assumes system can adapt or learn unknown parameters online</li>
+  </ul>
+
+  <h2>📦 Summary</h2>
+  <ul>
+    <li><strong>Robust control</strong> provides performance guarantees in the presence of model uncertainty</li>
+    <li>Essential in safety-critical or unpredictable environments (e.g., space, underwater, disaster zones)</li>
+    <li>Often used with or in comparison to adaptive and nonlinear control techniques</li>
+  </ul> 
+  <!--
     <h3>▶️ Embed a YouTube Video</h3>
     <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
             title="YouTube video" frameborder="0" allowfullscreen></iframe>
