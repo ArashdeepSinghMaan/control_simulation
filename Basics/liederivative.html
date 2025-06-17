@@ -28,34 +28,69 @@
 
 <main class="content-wrapper">
   <div class="main-content">
-    
-    <h2>Pressure Sensor</h2>
-<p>A <strong>ROS 2 workspace</strong> is a directory that helps you organize, develop, and build your ROS 2 projects efficiently.</p>
+   <h2>📘 What is the Lie Derivative?</h2>
+  <p>
+    The <strong>Lie Derivative</strong> describes how a scalar function changes along the flow of a vector field. It is fundamental in nonlinear control, especially in feedback linearization and geometric control.
+  </p>
 
-<p>For creating the workspace, follow the official documentation of ROS 2:</p>
-<a href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html">ROS 2 Workspace Creation Guide</a>
+  <h3>🧠 Intuition</h3>
+  <p>
+    Imagine a scalar function <code>h(x)</code> defined over a space, like temperature over a field. If you walk along a vector field <code>f(x)</code> (like wind direction), the Lie Derivative tells you how fast the temperature is changing in the direction of the wind.
+  </p>
 
-<h3>📷 This is how a typical ROS 2 workspace is structured:</h3>
-<img src="https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/workspace.png" alt="Workspace" width="80%">
+  <h2>🧮 Mathematical Definition</h2>
+  <pre>
+    L<sub>f</sub>h(x) = ∇h(x) · f(x)
+  </pre>
+  <ul>
+    <li><code>h(x)</code>: Scalar function (e.g., output of the system)</li>
+    <li><code>f(x)</code>: Vector field (e.g., system dynamics)</li>
+    <li><code>∇h(x)</code>: Gradient of <code>h(x)</code></li>
+  </ul>
+  <p>
+    The Lie derivative is the <strong>directional derivative</strong> of <code>h</code> along the vector field <code>f</code>.
+  </p>
 
-<h3>📷 Let's explore the workspace</h3>
+  <h3>⚙️ In Control Systems</h3>
+  <p>
+    For a nonlinear system:
+  </p>
+  <pre>
+    ẋ = f(x) + g(x)·u
+    y = h(x)
+  </pre>
+  <p>
+    The Lie derivatives tell how the output <code>y</code> depends on the state <code>x</code> and input <code>u</code>.
+  </p>
+  <ul>
+    <li><strong>Lie Derivative of h along f:</strong> <code>L<sub>f</sub>h(x)</code></li>
+    <li><strong>Lie Derivative of h along g:</strong> <code>L<sub>g</sub>h(x) = ∇h(x) · g(x)</code></li>
+  </ul>
 
-<h4>Install Folder</h4>
-   
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/install.png" alt="Install" width="80%">
-<p>The <strong>install/</strong> directory contains the final built packages and executables after compilation. You can run your ROS 2 nodes from here.</p>
+  <h3>🔄 Higher-Order Lie Derivatives</h3>
+  <p>
+    Sometimes one derivative is not enough. For example:
+  </p>
+  <pre>
+    L<sub>f</sub><sup>2</sup>h(x) = L<sub>f</sub>(L<sub>f</sub>h(x)) = ∇(L<sub>f</sub>h(x)) · f(x)
+  </pre>
+  <p>
+    These are used to determine <strong>relative degree</strong> and to construct feedback linearizing controllers.
+  </p>
 
-<h4>Build Folder</h4>
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/build.png" alt="Build" width="80%">
-<p>The <strong>build/</strong> folder holds temporary files generated during compilation. This helps convert your source code into an executable format.</p>
+  <h3>🤖 Application in Robotics</h3>
+  <ul>
+    <li>Used in <strong>feedback linearization</strong> to design nonlinear controllers</li>
+    <li>Helps express system output dynamics in terms of input <code>u</code></li>
+    <li>Used in planning and stability analysis of robotic systems</li>
+  </ul>
 
-<h4>Log Folder</h4>
-<img src="https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/log.png" alt="Log" width="80%">
-<p>The <strong>log/</strong> directory stores logs and debugging information from your previous runs. Check this folder to diagnose issues or review performance details.</p>
-
-<h4>Source Folder</h4>
-<img src=" https://raw.githubusercontent.com/ArashdeepSinghMaan/robotics_software_tutorial/6eb42d0e51cf1065fdfae4a20b1608b1c291ec3c/ROS/Images/packages.png" alt="src" width="80%">
-<p>The <strong>src/</strong> folder is where your actual code lives. This is where you place your ROS 2 packages, including nodes, launch files, and custom scripts.</p>
+  <h2>📌 Summary</h2>
+  <ul>
+    <li><strong>Lie Derivative</strong> measures how a scalar function changes along a vector field</li>
+    <li>Essential for nonlinear system analysis and control</li>
+    <li>Used heavily in feedback linearization, backstepping, and differential geometry-based control</li>
+  </ul>
 <!--
     <h3>▶️ Embed a YouTube Video</h3>
     <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
