@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FeedBack Linearization</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+   <header>
+   <header class="main-header">
+  <h1>From Code to Motion: <span>Simulating and Deploying Robots</span></h1>
+  <p class="tagline">A journey through simulation, control, and real-world deployment using ROS and Gazebo.</p>
+  </header>
+    <nav>
+        <a href="index.html">Home</a> 
+      <a href="about.html">About</a> 
+      <a href="PID.html" >PID</a>
+      <a href="FeedBack Linearization.html" >FeedBack Linearization</a>
+       <a href="BackStepping .html">BackStepping</a>
+      <a href="Basics.html">Basics</a>
+      <a href="Cascaded.html">Cascaded</a>
+      <div class="dropdown">
+  <button class="dropbtn">Other Resources</button>
+  <div class="dropdown-content">
+    <a href="https://arashdeepsinghmaan.github.io/simulation_gazebo/">Simulation & Gazebo</a>
+    <a href="https://arashdeepsinghmaan.github.io/robotics_software_tutorial/ROS.html">Robotics Operating System</a>
+    <a href="https://arashdeepsinghmaan.github.io/robotics_software_tutorial/cpp.html">Programming For Robotics</a>
+    <a href="https://arashdeepsinghmaan.github.io/control_simulation/">Robotics Control</a>
+  </div>
+</div>
+
+      <a href="contact.html">Contact</a>
+     
+    </nav>
+  </header>
+
+ <main class="content-wrapper">
+    <div class="main-content">
+        <h2>⚙️ Feedback Linearization</h2>
+  <p>
+    <strong>Feedback Linearization</strong> is a nonlinear control technique that cancels the nonlinearities of a system by applying a specific transformation and control law, effectively converting the system into an equivalent linear system for the purpose of control design.
+  </p>
+
+  <h3>🔧 Motivation</h3>
+  <p>
+    Many robotic systems (like manipulators, mobile robots, drones) have nonlinear dynamics, making traditional linear controllers (like PID or LQR) insufficient. Feedback linearization allows us to "flatten" these nonlinear dynamics into a simpler linear form.
+  </p>
+
+  <h3>📘 Basic Idea</h3>
+  <p>
+    Consider a nonlinear system:
+  </p>
+  <pre>
+    ẋ = f(x) + g(x)u
+    y = h(x)
+  </pre>
+  <p>
+    The goal is to design a control input <code>u</code> such that the input-output behavior becomes linear. This is done by applying a control law:
+  </p>
+  <pre>
+    u = α(x) + β(x)v
+  </pre>
+  <p>
+    Where <code>v</code> is the new (linear) control input, and <code>α(x)</code> and <code>β(x)</code> are designed to cancel out the system's nonlinearities.
+  </p>
+
+  <h3>🚀 Application in Robotics</h3>
+  <ul>
+    <li>Control of robotic arms (trajectory tracking)</li>
+    <li>Quadrotor and drone flight control</li>
+    <li>Mobile robot path-following</li>
+    <li>Exoskeleton or rehabilitation robot control</li>
+  </ul>
+
+  <h3>🧮 Example (Simple SISO)</h3>
+  <p>
+    Suppose you have a second-order system:
+  </p>
+  <pre>
+    ÿ = f(x) + g(x)u
+  </pre>
+  <p>
+    Define the control input as:
+  </p>
+  <pre>
+    u = (1/g(x)) * [-f(x) + v]
+  </pre>
+  <p>
+    Now the system becomes:
+  </p>
+  <pre>
+    ÿ = v
+  </pre>
+  <p>
+    Which is a linear double integrator! You can now apply a linear controller like PD:
+  </p>
+  <pre>
+    v = -k₁e - k₂ė
+  </pre>
+
+  <h3>✅ Benefits</h3>
+  <ul>
+    <li>Transforms nonlinear systems into linear ones for easier control</li>
+    <li>Enables use of well-understood linear control techniques</li>
+    <li>Effective for systems with known and exact models</li>
+  </ul>
+
+  <h3>⚠️ Limitations</h3>
+  <ul>
+    <li>Requires full knowledge of system dynamics</li>
+    <li>May not handle uncertainties or disturbances well</li>
+    <li>Not suitable for underactuated systems directly</li>
+  </ul>
+
+  <h3>📌 Summary</h3>
+  <ul>
+    <li><strong>Feedback linearization</strong> cancels nonlinearities to create a linear system</li>
+    <li>Often used in nonlinear robotic systems</li>
+    <li>Powerful but sensitive to model inaccuracies</li>
+  </ul>
+  
+      <!--
+      <h3>📷 Add an Image</h3>
+      <img src="images/your-image.jpg" alt="A related image about pointers or simulation">
+
+      <h3>▶️ Embed a YouTube Video</h3>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
+              title="YouTube video" frameborder="0" allowfullscreen></iframe>
+
+      <h3>📑 Additional Section</h3>
+      <p>Learn how pointers are used in plugin development, managing memory in ROS2 nodes, and other relevant applications.</p>
+-->
+   <div class="tutorial-section">
+  <h3>🧑‍💻 Sensor Fusion Tutorials</h3>
+  <p>First we will focus on individual topics. Then we will move forward to sensors and will see how these topics reflect on the sensors.</p>
+  <ul class="tutorial-links">
+    <li><a href="SensorFusion/Communication_protocol.html">Communication Protocol</a></li>
+    <li><a href="SensorFusion/power.html">Power</a></li>
+    <li><a href="SensorFusion/dataoutput.html">Data Output Format</a></li>
+    <li><a href="SensorFusion/drivers.html">Drivers</a></li>
+    <li><a href="SensorFusion/kalman.html">Kalman Filter</a></li>
+    <li><a href="SensorFusion/extended.html">Extended Kalman Filter</a></li>
+    <li><a href="SensorFusion/particle.html">Particle Filter</a></li>
+    <li><a href="SensorFusion/imu.html">IMU</a></li>
+    <li><a href="SensorFusion/gps.html">GPS</a></li>
+    <li><a href="SensorFusion/lidar.html">LIDAR</a></li>
+    <li><a href="SensorFusion/radar.html">RADAR</a></li>
+    <li><a href="SensorFusion/temperature.html">Temperature Sensor</a></li>
+    <li><a href="SensorFusion/pressure.html">Pressure Sensor</a></li>
+    <li><a href="SensorFusion/camera.html">Camera</a></li>
+    <li><a href="SensorFusion/sonar.html">Sonar</a></li>
+
+  </ul>
+</div>
+
+    </div>
+
+    <aside class="sidebar">
+      <h3>📌 Related Posts</h3>
+      <ul>
+        <li><a href="/simulation_gazebo/post1.html">How to Setup Gazebo</a></li>
+        <li><a href="/simulation_gazebo/post2.html">Understanding SDF Files</a></li>
+        <li><a href="/simulation_gazebo/post3.html">Creating Custom Robots</a></li>
+        <li><a href="/simulation_gazebo/post4.html">Working with ROS2</a></li>
+        <li><a href="/simulation_gazebo/post5.html">Building Plugins</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <section class="extra-resources">
+    <h3>📚 Other Useful Resources</h3>
+    <ul>
+      <li><a href="https://docs.ros.org/en/jazzy/index.html">ROS2 Official Documentation</a></li>
+      <li><a href="https://docs.ros.org/en/jazzy/Concepts/Basic.html">ROS2 Basic Concepts</a></li>
+      <li><a href="https://classic.gazebosim.org/tutorials">Classic Gazebo Tutorials</a></li>
+      <li><a href="https://github.com/ros-simulation">ROS Simulation GitHub</a></li>
+      <li><a href="https://cppreference.com">C++ Reference Site</a></li>
+    </ul>
+  </section>
+
+    
+
+  <footer>
+     <p>&copy; 2025 My Guide to Robotics Simulations</p>
+  </footer>
+
+</body>
+</html>
