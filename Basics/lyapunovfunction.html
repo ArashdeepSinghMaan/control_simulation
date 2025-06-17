@@ -28,7 +28,60 @@
 
 <main class="content-wrapper">
   <div class="main-content">
-    
+    <h2>🧠 What is a Lyapunov Function?</h2>
+  <p>
+    A <strong>Lyapunov function</strong> is a mathematical tool used to analyze the <strong>stability</strong> of a system without solving its differential equations. In robotics, it's used to ensure that a robot’s motion remains predictable and controlled.
+  </p>
+
+  <h3>⚙️ Intuition Behind It</h3>
+  <p>
+    Imagine a ball in a bowl. The ball always rolls to the lowest point and settles there. That lowest point is the <strong>stable equilibrium</strong>. The "height" of the ball in the bowl acts like the Lyapunov function — it always decreases until the system stabilizes.
+  </p>
+
+  <h2>🤖 Why Robotics Engineers Care</h2>
+  <ul>
+    <li><strong>Ensures safety</strong> — prevents erratic behavior</li>
+    <li><strong>Handles nonlinearity</strong> — works even when equations are complex</li>
+    <li><strong>Used in advanced control</strong> — like backstepping, adaptive, and sliding mode control</li>
+  </ul>
+
+  <h3>📌 Core Idea</h3>
+  <p>
+    Define a function <code>V(x)</code> such that:
+    <ul>
+      <li><code>V(x) &gt; 0</code> for all <code>x ≠ 0</code> (positive definite)</li>
+      <li><code>V(0) = 0</code> (zero at equilibrium)</li>
+      <li><code>𝑑V/dt &lt; 0</code> along system trajectories (decreases over time)</li>
+    </ul>
+  </p>
+
+  <h2>🧪 A Simple Example: Position Control</h2>
+
+  <h4>Step 1: Define Error</h4>
+  <p><code>e(t) = x(t) - x<sub>d</sub>(t)</code> &nbsp;&nbsp; (actual - desired position)</p>
+
+  <h4>Step 2: Lyapunov Candidate Function</h4>
+  <p><code>V(e) = ½ eᵀe</code> &nbsp;&nbsp; (like potential energy)</p>
+
+  <h4>Step 3: Time Derivative</h4>
+  <p><code>𝑑V/dt = eᵀ𝑑e/dt</code></p>
+
+  <h4>Step 4: Control Law (e.g., PD controller)</h4>
+  <p><code>𝑑e/dt = -K·e</code>, where <code>K</code> is positive definite</p>
+
+  <h4>Step 5: Analyze Stability</h4>
+  <p><code>𝑑V/dt = -eᵀKe &lt; 0</code> → error reduces over time → stable system</p>
+
+  <h2>📷 Visual Interpretation</h2>
+  <p>
+    A Lyapunov function creates a "landscape" where the robot’s state behaves like a ball rolling downhill to stability.
+  </p>
+
+  <h2>🚀 Conclusion</h2>
+  <p>
+    For robotics engineers, mastering Lyapunov theory means you can design <strong>robust controllers</strong> even for complex nonlinear robots. It’s a foundational tool in modern robotic control systems.
+  </p>
+
 <!--
     <h3>▶️ Embed a YouTube Video</h3>
     <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
